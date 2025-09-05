@@ -148,7 +148,7 @@ bool uni_hid_device_is_cod_supported(uint32_t cod);
 // @returns UNI_ERROR_SUCCESS if a connection to the device should be established.
 uni_error_t uni_hid_device_on_device_discovered(bd_addr_t addr, const char* name, uint16_t cod, uint8_t rssi);
 
-void uni_hid_device_set_hid_descriptor(uni_hid_device_t* d, const uint8_t* descriptor, int len);
+void uni_hid_device_set_hid_descriptor(uni_hid_device_t* d, const uint8_t* descriptor, uint16_t len);
 bool uni_hid_device_has_hid_descriptor(const uni_hid_device_t* d);
 
 void uni_hid_device_set_incoming(uni_hid_device_t* d, bool incoming);
