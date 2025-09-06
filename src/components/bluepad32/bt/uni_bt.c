@@ -165,25 +165,25 @@ static void on_hci_disconnection_complete(uint16_t channel, const uint8_t* packe
         // Get type before it gets destroyed.
         type = gap_get_connection_type(d->conn.handle);
 
-        if (IS_ENABLED(UNI_ENABLE_BLE) && type == GAP_CONNECTION_LE)
-            uni_bt_le_on_hci_disconnection_complete(channel, packet, size);
-        else if (IS_ENABLED(UNI_ENABLE_BREDR) && type == GAP_CONNECTION_ACL)
-            uni_bt_bredr_on_hci_disconnection_complete(channel, packet, size);
-        else
-            loge("on_hci_disconnection_complete: Unknown GAP connection type: %d\n", type);
-
         logi("Device %s disconnected, deleting it. Reason=%#x, status=%d\n", bd_addr_to_str(d->conn.btaddr), reason,
              status);
         uni_hid_device_disconnect(d);
         uni_hid_device_delete(d);
         // Device cannot be used after delete.
         d = NULL;
+
+        if (IS_ENABLED(UNI_ENABLE_BLE) && type == GAP_CONNECTION_LE)
+            uni_bt_le_on_hci_disconnection_complete(channel, packet, size);
+        else if (IS_ENABLED(UNI_ENABLE_BREDR) && type == GAP_CONNECTION_ACL)
+            uni_bt_bredr_on_hci_disconnection_complete(channel, packet, size);
+        else
+            loge("on_hci_disconnection_complete: Unknown GAP connection type: %d\n", type);
     }
 }
 
 static void cmd_callback(void* context) {
     uni_hid_device_t* d;
-    unsigned long ctx = (unsigned long)context;
+    uintptr_t ctx = (uintptr_t)context;
     uint16_t cmd = ctx & 0xffff;
     uint16_t args = (ctx >> 16) & 0xffff;
 
@@ -315,9 +315,9 @@ void uni_bt_dump_devices_safe() {
 
 void uni_bt_disconnect_device_safe(int device_idx) {
     btstack_context_callback_registration_t* cmd = get_next_callback_registration();
-    unsigned long idx = (unsigned long)device_idx;
+    uintptr_t idx = (uintptr_t)device_idx;
     cmd->callback = &cmd_callback;
-    cmd->context = (void*)(CMD_DISCONNECT_DEVICE | (idx << 16));
+    cmd->context = (void*)((uintptr_t)CMD_DISCONNECT_DEVICE | (idx << 16));
     btstack_run_loop_execute_on_main_thread(cmd);
 }
 
