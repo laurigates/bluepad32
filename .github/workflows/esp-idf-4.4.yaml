@@ -21,10 +21,6 @@ jobs:
       shell: bash
       run: cd external/btstack && git apply ../patches/*.patch
 
-    - name: Install BTstack
-      shell: bash
-      run: cd external/btstack/port/esp32 && IDF_PATH=../../../../src/ ./integrate_btstack.py
-
     - name: Unijoysticle build
       uses: espressif/esp-idf-ci-action@main
       with:
