@@ -96,18 +96,6 @@ Parameters:
 4. Setup
 
       ```cmd
-      # Setup BTstack
-      cd bluepad32\external\btstack\port\esp32
-      # This will install BTstack as a component inside Bluepad32 source code (recommended).
-      # Remove "IDF_PATH=../../../../src" if you want it installed in the ESP-IDF folder
-      set IDF_PATH=..\..\..\..\src
-      python integrate_btstack.py
-      ```
-
-      IMPORTANT: Once you complete the previous step, restart ESP-IDF CMD. This is because IDF_PATH
-      has been modified, and the easiest way to restore it is to relaunch CMD.
-
-      ```cmd
       # Setup Bluepad32 Platform
       cd bluepad32\src
       idf.py menuconfig
@@ -175,17 +163,7 @@ Parameters:
       git apply ../patches/*.patch 
       ```
 
-5. Setup
-
-      ```sh
-      # Setup BTstack
-      cd ${BLUEPAD32}/external/btstack/port/esp32
-      # This will install BTstack as a component inside Bluepad32 source code (recommended).
-      # Remove "IDF_PATH=../../../../src" if you want it installed in the ESP-IDF folder
-      IDF_PATH=../../../../src ./integrate_btstack.py
-      ```
-
-6. Compile it
+5. Compile it
 
       ```sh
       # Compile it

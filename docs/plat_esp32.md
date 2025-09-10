@@ -31,22 +31,13 @@ It works with ESP-IDF v4.4, but v5.3 or newer is recommended.
    git clone --recursive https://github.com/ricardoquesada/bluepad32.git
    ```
 
-### 3. Patch BTstack and integrate it as a local component
+### 3. Patch BTstack
 
 Patch it:
 
    ```sh
    cd ${BLUEPAD32_SRC}/external/btstack
    git apply ../patches/*.patch
-   ```
-
-Integrate it:
-
-   ```sh
-   cd ${BLUEPAD32}/external/btstack/port/esp32
-   # This will install BTstack as a component inside Bluepad32 source code (recommended).
-   # Remove "IDF_PATH=../../../../src" if you want it installed in the ESP-IDF folder
-   IDF_PATH=../../../../src ./integrate_btstack.py
    ```
 
 ### 4. Modify example
