@@ -398,7 +398,7 @@ static void unijoysticle_on_init_complete(void) {
     // Button 0 is pressed at boot, delete stored keys.
     const gpio_num_t button_gpio = g_gpio_config->push_buttons[UNI_PLATFORM_UNIJOYSTICLE_PUSH_BUTTON_0].gpio;
     const bool delete_keys = (button_gpio != -1) && !gpio_get_level(button_gpio);
-    
+
     if (delete_keys)
         uni_bt_del_keys_unsafe();
     else
