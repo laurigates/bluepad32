@@ -60,3 +60,7 @@ dependencies.lock
 # From some IDEs
 src/.cache
 .cache
+
+# Unit test binaries
+tests/test_uni_hid_device
+tests/test_uni_hid_parser
