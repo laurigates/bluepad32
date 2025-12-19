@@ -49,4 +49,22 @@ target_link_libraries(test_uni_hid_device
     m
 )
 
+add_executable(test_uni_hid_parser
+		test_uni_hid_parser.c
+)
+
+target_include_directories(test_uni_hid_parser PRIVATE
+    .
+    ${BLUEPAD32_ROOT}/src/components/bluepad32/include)
+
+# Needed for btstack_config.h / sdkconfig.h
+# so that libbluepad32 can include them
+include_directories(test_uni_hid_parser .)
+
+target_link_libraries(test_uni_hid_parser
+    bluepad32
+    btstack
+    m
+)
+
 add_subdirectory(${BLUEPAD32_ROOT}/src/components/bluepad32 libbluepad32)
