@@ -557,6 +557,8 @@ void uni_bt_bredr_on_gap_inquiry_result(uint16_t channel, const uint8_t* packet,
     }
     if (gap_event_inquiry_result_get_name_available(packet)) {
         name_len = gap_event_inquiry_result_get_name_len(packet);
+        if (name_len > HID_MAX_NAME_LEN)
+            name_len = HID_MAX_NAME_LEN;
         memcpy(name_buffer, gap_event_inquiry_result_get_name(packet), name_len);
         name_buffer[name_len] = 0;
         logi(", name '%s'", name_buffer);
